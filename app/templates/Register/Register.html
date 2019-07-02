@@ -1,0 +1,199 @@
+<!-- Including Header FIle -->
+{% extends '/MainOutline/MainOutline.html' %}
+
+<!-- Writing To Body Div -->
+{% block content %}
+<!-- CSS For Form Section -->
+<link rel="stylesheet" href="{{ url_for('static',filename='CSS/RegisterForm/Form.css') }}">
+
+<!-- Font CSS Link -->
+<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+
+<div class="container mb-5">
+    <div class="col-lg-12">
+        <div class="Form-title">
+            <h4>User Registstration</h4>
+        </div>
+        <!-- First Row -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <input type="text" id="TextBoxFirstName" class="form-control form-control-lg mt-2 inputName"
+                        placeholder="First Name">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <input type="text" id="TextBoxLastName" class="form-control form-control-lg mt-2 inputName"
+                        placeholder="Last Name">
+                </div>
+            </div>
+        </div>
+        <!-- First Row End -->
+        <!-- Second Row -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <input type="text" id="TextBoxUserName" class="form-control form-control-lg mt-2 inputUserName" placeholder="Username">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <input type="text" id="TextBoxEmailAddress" class="form-control form-control-lg mt-2 inputEmail"
+                        placeholder="Email">
+                </div>
+            </div>
+        </div>
+        <!-- Second Row End -->
+        <!-- Third Row -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <input type="password" id="TextBoxPassword" class="form-control form-control-lg mt-2 inputPassword"
+                        placeholder="Password">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <input type="password" id="TextBoxConfirmPassword"
+                        class="form-control form-control-lg mt-2 inputPassword" placeholder="Confirm Password">
+                </div>
+            </div>
+        </div>
+        <!-- Third Row End -->
+        <!-- Fourth Row -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <input type="text" id="TextBoxContactNumber" class="form-control form-control-lg mt-2 inputContact"
+                        placeholder="Contact Number">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <input type="text" id="TextBoxAddress" class="form-control form-control-lg mt-2 inputAddress"
+                        placeholder="Address">
+                </div>
+            </div>
+            <div class="col-lg-6">
+            </div>
+        </div>
+        <!-- Fourth Row End -->
+        <!-- Fifth Row -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div id="RadioButtonSet">
+                    <!-- Radio Buttons -->
+                    <!-- <label class="radio">Customer
+                        <input type="radio" checked value="Customer" name="RadioUserType" id="RadioCustomer">
+                        <span class="checkround"></span>
+                    </label>
+
+                    <label class="radio">Bussinessmen
+                        <input type="radio" value="Bussinessmen" name="RadioUserType" id="RadioBussiness">
+                        <span class="checkround"></span>
+                    </label> -->
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <!-- No Data -->
+            </div>
+        </div>
+        <!-- Fifth Row End -->
+        <!-- Buttons -->
+        <div class="row mt-4">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <input type="button" id="btn_Register" class="btn btn-success rounded col-lg-3" value="Register">
+                </div>
+            </div>
+            <div class="col-lg-6">
+            </div>
+        </div>
+        <!-- Button Ends -->
+    </div>
+</div>
+
+<script>
+    $('#btn_Register').click(function () {
+        RegisterUser();
+    });
+    $(document).ready(function () {
+        createUserTypesRadios();
+    });
+
+    function RegisterUser() {
+        $UserName = $('#TextBoxUserName').val()
+        $FirstName = $('#TextBoxFirstName').val();
+        $LastName = $('#TextBoxLastName').val();
+        $EmailAddress = $('#TextBoxEmailAddress').val();
+        $Address = $('#TextBoxAddress').val();
+        $ContactNumber = $('#TextBoxContactNumber').val();
+        $UserType = $('input[name=RadioUserType]:checked').val();
+        $Password = $('#TextBoxPassword').val();
+        $ConfirmPassword = $('#TextBoxConfirmPassword').val();
+        if ($Password == '' || $ConfirmPassword == '' || $EmailAddress == '' || $Address == '' || $ContactNumber == '' || $UserType == '' || $FirstName == '' || $LastName == '' || $UserName == '') {
+            showMessage('Error!', 'All Fields Must Be Filled!');
+            return;
+        }
+        if ($Password === $ConfirmPassword) {
+            $data = { UserName:$UserName,FirstName: $FirstName, LastName: $LastName, EmailAddress: $EmailAddress, Address: $Address, ContactNumber: $ContactNumber, UserType: $UserType, Password: $Password };
+            $.ajax({
+                type: 'post',
+                data: $data,
+                url: '/Register',
+                dataType: 'json',
+                success: function (Result) {
+                    if (Result.Type === 'Success') {
+                        // showMessage('Success', Result.Message);
+                        $('input[type="text"]').val('');
+                        $('input[type="password"]').val('');
+                        confirmMessageWindowOpen('Success',Result.Message,Result.NextURL);
+                        
+                    }
+                    else if (Result.Type === 'Warning') {
+                        showMessage('Error!', Result.Message);
+                    }
+                    else {
+                        showMessage('Error!', Result.Message);
+                    }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR.status, errorThrown);
+                }
+            });
+        }
+        else {
+            showMessage('Error!', 'Password Fields Does Not Match!');
+            return;
+        }
+    }
+
+    // Dynamically Creating User Types Radio Buttons
+    function createUserTypesRadios() {
+        $.ajax({
+            type: 'get',
+            url: '/getUserTypes',
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+                $.each(result, function (index, value) {
+                    if (index == 0) {
+                        $('#RadioButtonSet').append('<label class="radio">' + value.UserTypeName + '<input checked type="radio" value="' + value.UserTypeName + '" name="RadioUserType"><span class="checkround"></span></label>')
+                    }
+                    else {
+                        $('#RadioButtonSet').append('<label class="radio">' + value.UserTypeName + '<input type="radio" value="' + value.UserTypeName + '" name="RadioUserType"><span class="checkround"></span></label>');
+                    }
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.status, errorThrown);
+            }
+        });
+    }
+</script>
+
+
+{% endblock %}
+<!-- End Writing Body Div -->

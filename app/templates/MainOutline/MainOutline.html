@@ -1,0 +1,168 @@
+<html>
+
+<head>
+    <title>{{title}}</title>
+    <!-- Bootstrap 4 CSS Files -->
+    <link rel="stylesheet" href="{{url_for('static',filename = 'CSS/Bootstrap/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename = 'CSS/Bootstrap/bootstrap-grid.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename = 'CSS/Bootstrap/bootstrap-reboot.css')}}">
+    <!-- CSS For The MainOutline -->
+    <!-- Note This CSS File Will Affect Other Pages since Other Pages Load Within This File -->
+    <link rel="stylesheet" href="{{url_for('static',filename='CSS/MainOutline/Main.css')}}">
+    <!-- ConfirmJS CSS File -->
+    <link rel="stylesheet" href="{{url_for('static',filename = 'CSS/ConfirmJS/jquery-confirm.css')}}">
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="{{url_for('static',filename = 'CSS/FontAwesome/all.css')}}">
+    
+    <!-- JQuery Import -->
+    <script src="{{ url_for('static',filename='JS/JQuery/JQuery.js') }}"></script>
+    <!-- Bootstrap 4 JS Files -->
+    <script src="{{ url_for('static',filename='JS/Bootstrap/bootstrap.bundle.js') }}"></script>
+    <script src="{{ url_for('static',filename='JS/Bootstrap/bootstrap.js') }}"></script>
+    <!-- ConfirmJS JS File -->
+    <script src="{{ url_for('static',filename='JS/ConfirmJS/jquery-confirm.js') }}"></script>
+    <!-- Global Customize JS Methods File -->
+    <script src="{{ url_for('static',filename='JS/GlobalJS/Global.js') }}"></script>
+    <!-- FontAwesome SVG JS -->
+    <script src="{{ url_for('static',filename='JS/FontAwesome/all.js') }}"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark head">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01"
+            aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand mr-auto ml-1" href="#">CHOONGPANG.LK</a>
+        <img src="{{ url_for('static',filename='Images/NavBar/Search.png') }}" class="navbar-brand search img-fluid">
+
+        <div class="collapse navbar-collapse" id="navbarsExample01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Categories</a>
+                    <div class="dropdown-menu head" aria-labelledby="dropdown01">
+                        <a class="dropdown-item dropDown" href="#">Products</a>
+                        <a class="dropdown-item" href="#">Routes</a>
+                        <a class="dropdown-item" href="#">Times</a>
+                        <a class="dropdown-item" href="#">Bussiness</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">How It Works</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About Us</a>
+                </li>
+            </ul>
+            <!-- Search Section -->
+        </div>
+    </nav>
+    <!-- Login User Section Start -->
+    <div class="container-fluid head border-bottom border-top"  id="LoginUserSection">
+        <div class="mt-3">
+            <div class="row mb-3">
+                <div class="col-sm-4 col-xs-5 col-lg-8">
+                    <span><img class="Login ml-4"
+                            src="{{ url_for('static',filename='Images/LoginSection/English.png') }}"></span>
+                    <button class="btn btnColorEnglish shadow-lg ml-2">English</button>
+                    <span><img class="Login ml-4"
+                            src="{{ url_for('static',filename='Images/LoginSection/Facebook.png') }}"></span>
+                    <span><img class="Login ml-2"
+                            src="{{ url_for('static',filename='Images/LoginSection/Instagram.png') }}"></span>
+                </div>
+                <div class="col-sm-4 col-xs-3 col-lg-4 text-right">
+                    <button class="btn btnColorLogin mr-4">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login User Section End -->
+    <!-- Drop Down Icon Section Start -->
+    <div class="row" id="DropDownIcon">
+        <div class="col-lg-12 border-bottom head">
+            <div class="text-center">
+                <span><img src="{{ url_for('static',filename='Images/NavBar/DownArrow.png') }}" alt=""></span>
+            </div>
+        </div>
+    </div>
+    <!-- Drop Down Icon Section End -->
+    <!-- Drop Down Icon2 Section Start -->
+    <div class="row" id="DropDownIcon2">
+            <div class="col-lg-12 border-bottom head">
+                <div class="text-center">
+                    <span><img src="{{ url_for('static',filename='Images/NavBar/UpArrow.png') }}" alt=""></span>
+                </div>
+            </div>
+        </div>
+        <!-- Drop Down Icon2 Section End -->
+    <!-- Toggle Button Section Start -->
+    <div id="MenuBar" class=" MainMenuSection container-fluid text-center" style="border-bottom:3px rgb(197, 197, 197) solid;"
+        id="ToggleButtonSection">
+        <div class="row">
+            <div class="mt-4 mb-3" style="margin-left: 7%;">
+                <span><img class="menuItems" src="{{ url_for('static',filename='Images/LoginSection/Taco.png') }}"
+                        alt=""></span>
+                <span class="ml-4">Products</span>
+            </div>
+            <span class="vl" style="margin-left: 5.5%"></span>
+            <div class="mt-4 mb-3" style="margin-left: 7%;">
+                <span><img class="menuItems" src="{{ url_for('static',filename='Images/LoginSection/Delivery.png') }}"
+                        alt=""></span>
+                <span class="ml-4">Routes</span>
+            </div>
+            <span class="vl" style="margin-left: 6.7%"></span>
+            <div class="mt-4 mb-3" style="margin-left: 7%;">
+                <span><img class="menuItems" src="{{ url_for('static',filename='Images/LoginSection/Timeline.png') }}"
+                        alt=""></span>
+                <span class="ml-4">Times</span>
+            </div>
+            <span class="vl" style="margin-left: 7.9%"></span>
+            <div class="mt-4 mb-3" style="margin-left: 7%;">
+                <span><img class="menuItems" src="{{ url_for('static',filename='Images/LoginSection/Idea.png') }}"
+                        alt=""></span>
+                <span class="ml-4">Bussiness</span>
+            </div>
+        </div>
+    </div>
+    <!-- Toggle Button Section End -->
+    <!-- Body Div Start -->
+    <div class="mt-5 ml-2 mr-2 mb-2 col-lg-12">
+        {%block content%}
+        {%endblock%}
+    </div>
+    <!-- Body DIv End -->
+    <!-- Footer Start -->
+    <footer class=" mt-5 page-footer fixed-bottom font-small blue">
+        <div class="footer-copyright text-center py-3">© {{date}} Copyright:
+            <a href="https://mdbootstrap.com/education/bootstrap/" class="text-primary">UnrealisticSolutions.com</a>
+        </div>
+    </footer>
+    <!-- Footer End -->
+    <!-- MainLayout Scripts -->
+    <script>
+        $(document).ready(function(){
+            $('#MenuBar').hide();
+            $('#DropDownIcon2').hide();
+        });
+        $('#DropDownIcon').click(function(){
+            $('#DropDownIcon').hide(1500);
+            $('#DropDownIcon2').show(1000);
+            $('#MenuBar').show(2000);
+        });
+
+        $('#DropDownIcon2').click(function(){
+            $('#DropDownIcon2').hide(1500);
+            $('#DropDownIcon').show(1000);
+            $('#MenuBar').hide(2000);
+        });
+    </script>
+
+</body>
+
+</html>
