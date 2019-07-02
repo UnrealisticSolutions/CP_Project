@@ -60,7 +60,7 @@
                 <div class="col-lg-6">
                     <span class="card text-center font-weight-bold">Share Something About Your Business</span>
                     <div class="form-group">
-                            <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" rows="10"></textarea>
+                            <textarea class="form-control rounded-0" id="TextBoxDescription" rows="10"></textarea>
                         </div>                  
                     </div>
                 </div>
@@ -70,10 +70,8 @@
         <div class="row mt-4">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <input type="button" id="btn_Register" class="btn btn-success rounded col-lg-3" value="Register">
+                    <input type="button" id="btn_RegisterBusiness" class="btn btn-success rounded ml-3" value="Register Business">
                 </div>
-            </div>
-            <div class="col-lg-6">
             </div>
         </div>
         <!-- Button Ends -->
@@ -81,7 +79,53 @@
 </div>
 
 <script>
-    
+    function RegisterBusiness()
+    {
+        $BusinessName = $('#TextBoxBusinessName').val();
+        $BusinessContactNumber = $('#TextBoxBusinessContactNumber').val();
+        $BusinessEmail = $('#TextBoxBusinessEmail').val();
+        $BusinessAdress = $('#TextBoxBusinessAddress').val();
+        $BusinessDescription = $('#TextBoxDescription').val();
+        $BusinessImage = $('#FileFieldBusinessImage').prop('files')[0]
+        if($BusinessName == '' || $BusinessContactNumber == '')
+        {
+            showMessage('Error!','Business Name and Business Contact Number Must Be Filled!');
+            return;
+        }
+        $data = {BusinessName : $BusinessName,BusinessContactNumber:$BusinessContactNumber,BusinessEmail:$BusinessEmail,BusinessAddress:$BusinessAdress,BusinessDescription:$BusinessDescription,BusinessImage:$BusinessImage};
+        $.ajax({
+            type:'post',
+            url:'/addBusinessDetails',
+            data:$data,
+            dataType:'json',
+            success:function(result)
+            {
+                if (Result.Type === 'Success') {
+                        // showMessage('Success', Result.Message);
+                        $('input[type="text"]').val('');
+                        $('input[type="file"]').val('');
+                        $('#TextBoxDescription').val('');
+                        confirmMessageWindowOpen('Success', Result.Message, Result.NextURL);
+
+                    } else if (Result.Type === 'Warning') {
+                        showMessage('Error!', Result.Message);
+                    } else {
+                        showMessage('Error!', Result.Message);
+                    }
+            },
+            error:function(jqXHR, textStatus, errorThrown)
+            {
+                console.log(jqXHR.status,errorThrown);
+            }
+        });
+    }
+
+    $(document).ready(function(){
+        $('#btn_RegisterBusiness').click(function(){
+            RegisterBusiness();
+        });
+    });
+
 </script>
 
 

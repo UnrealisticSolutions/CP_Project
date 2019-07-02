@@ -72,9 +72,12 @@ def Register():
 def addBussinessDetails():
     title = 'Add Business Details!'
     date = datetime.datetime.now().year
+    if request.method == 'POST':
+        BusinessName = request.form['BusinessName']
+        
     # Get User Id From A Get Request And Get The User Object
-    User = User.objects.get(id=request.args.get('UserId'))
-    return render_template('Register/AddBusinessDetails/AddBusinessDetails.html',User = User)
+    UserObj = User.objects.get(id=request.args.get('UserId'))
+    return render_template('Register/AddBusinessDetails/AddBusinessDetails.html',User = UserObj)
 
 # Route to send UserTypes To The Page To Show Select Fields
 @LoginRegister.route('/getUserTypes', methods=['GET'])
