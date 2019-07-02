@@ -13,7 +13,6 @@ def index():
     if not CheckUserTypes:
         UserType(UserTypeName = 'Customer').save()
         UserType(UserTypeName = 'Bussinessmen').save()
-        return 'User Types Saved!'
     return 'Login Page'
 
 
