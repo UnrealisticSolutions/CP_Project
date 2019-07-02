@@ -57,16 +57,13 @@ def Register():
             Message = 'Username Already Taken!'
             JsonResponse = {'Type': 'Warning', 'Message': Message}
             return jsonify(JsonResponse)
-        User(UserUserName=UserNameInput, UserFirstName=FirstNameInput, UserLastName=LastNameInput, UserEmail=EmailAddressInput,
-             UserPassword=HashedPassword, UserContactNumber=ContactNumberInput, UserAdrress=AddressInput, UserType=UserTypeObject).save()
+        Return_User = User(UserUserName=UserNameInput, UserFirstName=FirstNameInput, UserLastName=LastNameInput, UserEmail=EmailAddressInput, UserPassword=HashedPassword, UserContactNumber=ContactNumberInput, UserAdrress=AddressInput, UserType=UserTypeObject).save()
         Message = 'Your Account Has Been Successfully Created!'
         # Returning the Url Of The Next Rendering Page according To The User Type
         if UserTypeNameInput == 'Businessmen':
-            JsonResponse = {'Type': 'Success',
-                            'Message': Message, 'NextURL': 'addBusinessDetails'}
+            JsonResponse = {'Type': 'Success','Message': Message, 'NextURL': 'addBusinessDetails?UserId='+str(Return_User.id)}
         else:
-            JsonResponse = {'Type': 'Success',
-                            'Message': Message, 'NextURL': 'Register'}
+            JsonResponse = {'Type': 'Success','Message': Message, 'NextURL': 'Register'}
         return jsonify(JsonResponse)
     return render_template('Register/Register.html', title=title, date=date)
 
@@ -75,7 +72,9 @@ def Register():
 def addBussinessDetails():
     title = 'Add Business Details!'
     date = datetime.datetime.now().year
-    return render_template('Register/AddBusinessDetails/AddBusinessDetails.html')
+    # Get User Id From A Get Request And Get The User Object
+    User = User.objects.get(id=request.args.get('UserId'))
+    return render_template('Register/AddBusinessDetails/AddBusinessDetails.html',User = User)
 
 # Route to send UserTypes To The Page To Show Select Fields
 @LoginRegister.route('/getUserTypes', methods=['GET'])
