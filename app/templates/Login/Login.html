@@ -1,0 +1,42 @@
+<!--Including Header File-->
+{% extends '/MainOutline/MainOutline.html'%} {% block content %}
+<!-- Login Form -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-5 ml-4"> </div>
+        <div class="form-group col-lg-6 card ml-4 roundCorners" style="width: 100%">
+            <h1 class="text-center mt-5 mb-5" style="height: 100%">Login with</h1>
+            <div class="row">
+                <p id="GmailButton" class="card col-9 col-sm-4 col-lg-5 col-md-5 mb-4 gmailBtnSize roundCorners" style="background-color: #ffffff; color: rgb(65, 65, 65)"><span class="mt-2 mb-2 text-center "><img src="static/Images/search.png" class="iconButtonSize" ><span class="iconButtonText">Login with google</span> </span>
+                </p>
+                <p id="FbButton" class="card col-9 col-sm-4 col-lg-5 col-md-5 mb-4 faceBookBtnSize roundCorners" style="background-color: #3b5998; color: oldlace"><span class=" mt-2 mb-2 text-center"><img src="static/Images/facebook.png" class="iconButtonSize" ><span class="iconButtonText">Login with facebook </span></span>
+                </p>
+                <div class="form-group col-9 col-lg-11 col-md-11 col-sm-9 marignleftdiv ">
+                    <input type="text " class="form-control mt-2 roundCorners " style="height: 60px; background-color: #f7f5f5; outline: #f7f5f5" id="usr ">
+                </div>
+                <div class="form-group col-9 col-lg-11 col-md-11 col-sm-9 marignleftdiv ">
+                    <input type="password " class="form-control mt-3 roundCorners " style="height: 60px; background-color: #f7f5f5 " id="pwd ">
+                </div>
+                <p class="text-center col-11 col-lg-12 col-md-12 col-sm-11 mt-4" style="font-size: 16px;  margin-bottom: 70px; color: rgb(110, 110, 110);"> forgot password ?</p>
+                <button type="button" class="btn btn-dark col-7 col-lg-9 col-md-9 roundCorners loginButton">Login</button>
+                <button type="button" class="btn btn-warning col-5 col-lg-6 col-md-6 mt-4 roundCorners SignupButton">Signup</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    function mouseEnterIconButton() {
+        $("#GmailButton").mouseover(function() {
+            $("#GmailButton").css("background-color", "#23222");
+        });
+        $("#GmailButton").mouseleave(function() {
+            $("#GmailButton").css("background-color", "#3b5998");
+        });
+    }
+    $(document).ready(function() {
+        mouseEnterIconButton();
+    });
+</script>
+{% endblock %}
