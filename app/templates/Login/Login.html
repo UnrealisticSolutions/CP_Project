@@ -1,6 +1,7 @@
 <!--Including Header File-->
 {% extends '/MainOutline/MainOutline.html'%} 
 {% block content %}
+<link rel="stylesheet" href="{{ url_for('static',filename='CSS/LoginPage/Form.css') }}">
 <!-- Login Form -->
 <div class="container-fluid">
     <div class="row">
@@ -8,9 +9,9 @@
         <div class="form-group col-lg-6 card ml-4 roundCorners" style="width: 100%">
             <h1 class="text-center mt-5 mb-5" style="height: 100%">Login with</h1>
             <div class="row">
-                <p id="GmailButton" class="card col-9 col-sm-4 col-lg-5 col-md-5 mb-4 gmailBtnSize roundCorners" style="background-color: #ffffff; color: rgb(65, 65, 65)"><span class="mt-2 mb-2 text-center "><img src="static/Images/search.png" class="iconButtonSize" ><span class="iconButtonText">Login with google</span> </span>
+                <p id="GmailButton" class="card col-9 col-sm-4 col-lg-5 col-md-5 mb-4 gmailBtnSize roundCorners" style="background-color: #ffffff; color: rgb(65, 65, 65)"><span class="mt-2 mb-2 text-center "><img src="{{ url_for('static',filename = 'Images/LoginPage/Search.png') }}" class="iconButtonSize" ><span class="iconButtonText">Login with google</span> </span>
                 </p>
-                <p id="FbButton" class="card col-9 col-sm-4 col-lg-5 col-md-5 mb-4 faceBookBtnSize roundCorners" style="background-color: #3b5998; color: oldlace"><span class=" mt-2 mb-2 text-center"><img src="static/Images/facebook.png" class="iconButtonSize" ><span class="iconButtonText">Login with facebook </span></span>
+                <p id="FbButton" class="card col-9 col-sm-4 col-lg-5 col-md-5 mb-4 faceBookBtnSize roundCorners" style="background-color: #3b5998; color: oldlace"><span class=" mt-2 mb-2 text-center"><img src="{{ url_for('static',filename = 'Images/LoginPage/Facebook.png') }}" class="iconButtonSize" ><span class="iconButtonText">Login with facebook </span></span>
                 </p>
                 <div class="form-group col-9 col-lg-11 col-md-11 col-sm-9 marignleftdiv ">
                     <input type="text " class="form-control mt-2 roundCorners " style="height: 60px; background-color: #f7f5f5; outline: #f7f5f5" id="usr ">

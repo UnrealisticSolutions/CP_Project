@@ -9,13 +9,13 @@ LoginRegister = Blueprint('LoginRegister', __name__)
 
 @LoginRegister.route('/', methods=['GET', 'POST'])
 def Login():
+    title = 'User Login'
+    date = datetime.datetime.now().year
     # Checking If The User Types Are In The Database Or Not. If Not Default User Types Will Be Added Automatically In This Route
     CheckUserTypes = UserType.objects()
     if not CheckUserTypes:
         UserType(UserTypeName='Customer').save()
         UserType(UserTypeName='Bussinessmen').save()
-        title = 'User Login'
-    date = datetime.datetime.now().year
     return render_template('Login/Login.html', title=title, date=date)
 
 
