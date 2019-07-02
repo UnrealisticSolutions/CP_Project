@@ -1,0 +1,112 @@
+.marignleftdiv {
+    margin-right: 150px;
+    margin-left: 40px;
+}
+
+.faceBookBtnSize {
+    margin-left: 50px;
+    height: 60px;
+}
+
+.gmailBtnSize {
+    margin-left: 52px;
+    height: 60px;
+}
+
+.roundCorners {
+    border-radius: 15px;
+}
+
+.iconButtonSize {
+    width: 40px;
+    height: 40px;
+    margin-right: 0px;
+}
+
+.iconButtonText {
+    margin-right: 180px;
+    margin-left: 50px;
+    margin-right: 20px;
+}
+
+.inputUsername {
+    background: url()no-repeat scroll 7px 7px;
+    padding-left: 50px;
+    background-color: aliceblue;
+}
+
+.loginButton {
+    margin-left: 115px;
+    height: 60px;
+}
+
+.SignupButton {
+    margin-left: 230px;
+    margin-bottom: 200px;
+    height: 50px;
+}
+
+@media (min-width: 100px) and (max-width: 400px) {
+    .gmailBtnSize {
+        margin-left: 40px;
+        height: 60px;
+    }
+    .faceBookBtnSize {
+        margin-left: 40px;
+        height: 60px;
+    }
+    .loginButton {
+        margin-left: 65px;
+        height: 60px;
+    }
+    .SignupButton {
+        margin-left: 95px;
+        height: 50px;
+    }
+    .iconButtonText {
+        margin-left: 15px;
+        margin-right: 20px;
+    }
+}
+
+@media (min-width: 400px) and (max-width: 800px) {
+    .loginButton {
+        margin-left: 88px;
+        height: 60px;
+    }
+    .SignupButton {
+        margin-left: 180px;
+        height: 50px;
+    }
+    .gmailBtnSize {
+        margin-left: 40px;
+        height: 60px;
+    }
+    .faceBookBtnSize {
+        margin-left: 40px;
+        height: 60px;
+    }
+    .iconButtonText {
+        margin-left: 50px;
+        margin-right: 20px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1350px) {
+    .loginButton {
+        margin-left: 88px;
+        height: 60px;
+    }
+    .SignupButton {
+        margin-left: 180px;
+        height: 50px;
+    }
+    .gmailBtnSize {
+        margin-left: 40px;
+        height: 60px;
+    }
+    .faceBookBtnSize {
+        margin-left: 40px;
+        height: 60px;
+    }
+}
