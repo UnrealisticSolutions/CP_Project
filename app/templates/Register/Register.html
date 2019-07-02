@@ -18,14 +18,12 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <input type="text" id="TextBoxFirstName" class="form-control form-control-lg mt-2 inputName"
-                        placeholder="First Name">
+                    <input type="text" id="TextBoxFirstName" class="form-control form-control-lg mt-2 inputName" placeholder="First Name">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <input type="text" id="TextBoxLastName" class="form-control form-control-lg mt-2 inputName"
-                        placeholder="Last Name">
+                    <input type="text" id="TextBoxLastName" class="form-control form-control-lg mt-2 inputName" placeholder="Last Name">
                 </div>
             </div>
         </div>
@@ -39,8 +37,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <input type="text" id="TextBoxEmailAddress" class="form-control form-control-lg mt-2 inputEmail"
-                        placeholder="Email">
+                    <input type="text" id="TextBoxEmailAddress" class="form-control form-control-lg mt-2 inputEmail" placeholder="Email">
                 </div>
             </div>
         </div>
@@ -49,14 +46,12 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <input type="password" id="TextBoxPassword" class="form-control form-control-lg mt-2 inputPassword"
-                        placeholder="Password">
+                    <input type="password" id="TextBoxPassword" class="form-control form-control-lg mt-2 inputPassword" placeholder="Password">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <input type="password" id="TextBoxConfirmPassword"
-                        class="form-control form-control-lg mt-2 inputPassword" placeholder="Confirm Password">
+                    <input type="password" id="TextBoxConfirmPassword" class="form-control form-control-lg mt-2 inputPassword" placeholder="Confirm Password">
                 </div>
             </div>
         </div>
@@ -65,14 +60,12 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <input type="text" id="TextBoxContactNumber" class="form-control form-control-lg mt-2 inputContact"
-                        placeholder="Contact Number">
+                    <input type="text" id="TextBoxContactNumber" class="form-control form-control-lg mt-2 inputContact" placeholder="Contact Number">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <input type="text" id="TextBoxAddress" class="form-control form-control-lg mt-2 inputAddress"
-                        placeholder="Address">
+                    <input type="text" id="TextBoxAddress" class="form-control form-control-lg mt-2 inputAddress" placeholder="Address">
                 </div>
             </div>
             <div class="col-lg-6">
@@ -83,16 +76,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div id="RadioButtonSet">
-                    <!-- Radio Buttons -->
-                    <!-- <label class="radio">Customer
-                        <input type="radio" checked value="Customer" name="RadioUserType" id="RadioCustomer">
-                        <span class="checkround"></span>
-                    </label>
 
-                    <label class="radio">Bussinessmen
-                        <input type="radio" value="Bussinessmen" name="RadioUserType" id="RadioBussiness">
-                        <span class="checkround"></span>
-                    </label> -->
                 </div>
             </div>
             <div class="col-lg-6">
@@ -115,10 +99,10 @@
 </div>
 
 <script>
-    $('#btn_Register').click(function () {
+    $('#btn_Register').click(function() {
         RegisterUser();
     });
-    $(document).ready(function () {
+    $(document).ready(function() {
         createUserTypesRadios();
     });
 
@@ -137,34 +121,40 @@
             return;
         }
         if ($Password === $ConfirmPassword) {
-            $data = { UserName:$UserName,FirstName: $FirstName, LastName: $LastName, EmailAddress: $EmailAddress, Address: $Address, ContactNumber: $ContactNumber, UserType: $UserType, Password: $Password };
+            $data = {
+                UserName: $UserName,
+                FirstName: $FirstName,
+                LastName: $LastName,
+                EmailAddress: $EmailAddress,
+                Address: $Address,
+                ContactNumber: $ContactNumber,
+                UserType: $UserType,
+                Password: $Password
+            };
             $.ajax({
                 type: 'post',
                 data: $data,
                 url: '/Register',
                 dataType: 'json',
-                success: function (Result) {
+                success: function(Result) {
                     if (Result.Type === 'Success') {
                         // showMessage('Success', Result.Message);
                         $('input[type="text"]').val('');
                         $('input[type="password"]').val('');
-                        confirmMessageWindowOpen('Success',Result.Message,Result.NextURL);
-                        
-                    }
-                    else if (Result.Type === 'Warning') {
+                        confirmMessageWindowOpen('Success', Result.Message, Result.NextURL);
+
+                    } else if (Result.Type === 'Warning') {
                         showMessage('Error!', Result.Message);
-                    }
-                    else {
+                    } else {
                         showMessage('Error!', Result.Message);
                     }
 
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR.status, errorThrown);
                 }
             });
-        }
-        else {
+        } else {
             showMessage('Error!', 'Password Fields Does Not Match!');
             return;
         }
@@ -176,18 +166,17 @@
             type: 'get',
             url: '/getUserTypes',
             dataType: 'json',
-            success: function (result) {
+            success: function(result) {
                 console.log(result);
-                $.each(result, function (index, value) {
+                $.each(result, function(index, value) {
                     if (index == 0) {
                         $('#RadioButtonSet').append('<label class="radio">' + value.UserTypeName + '<input checked type="radio" value="' + value.UserTypeName + '" name="RadioUserType"><span class="checkround"></span></label>')
-                    }
-                    else {
+                    } else {
                         $('#RadioButtonSet').append('<label class="radio">' + value.UserTypeName + '<input type="radio" value="' + value.UserTypeName + '" name="RadioUserType"><span class="checkround"></span></label>');
                     }
                 });
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.status, errorThrown);
             }
         });
