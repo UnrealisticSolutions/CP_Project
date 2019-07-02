@@ -9,6 +9,7 @@ LoginRegister = Blueprint('LoginRegister',__name__)
 
 @LoginRegister.route('/',methods = ['GET','POST'])
 def index():
+    # Checking If The User Types Are In The Database Or Not. If Not Default User Types Will Be Added Automatically In This Route
     CheckUserTypes = UserType.objects()
     if not CheckUserTypes:
         UserType(UserTypeName = 'Customer').save()
