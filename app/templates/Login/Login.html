@@ -17,13 +17,13 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='LoginPageVendor/Vendor/Animate/animate.css') }}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='LoginPageVendor/Vendor/Css-hamburgers/hamburgers.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='LoginPageVendor/Vendor/Css-hamburgers/hamburgers.min.css') }}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='LoginPageVendor/Vendor/Animsition/css/animsition.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='LoginPageVendor/Vendor/Animsition/css/animsition.min.css') }}">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='LoginPageVendor/Vendor/Select2/select2.min.css')}}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='LoginPageVendor/Vendor/Daterangepicker/daterangepicker.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='LoginPageVendor/Vendor/Daterangepicker/daterangepicker.css') }}">
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='CSS/LoginPage/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='CSS/LoginPage/main.css') }}">
@@ -43,21 +43,21 @@
 
 
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email">
+                        <input id=TextBoxUserName class="input100" type="text" name="email">
                         <span class="focus-input100"></span>
                         <span class="label-input100">Email</span>
                     </div>
 
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="pass">
+                        <input id=TextBoxPassword class="input100" type="password" name="pass">
                         <span class="focus-input100"></span>
                         <span class="label-input100">Password</span>
                     </div>
 
                     <div class="flex-sb-m w-full p-t-3 p-b-32">
                         <div class="contact100-form-checkbox">
-                            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                            <input id=CheckBoxRememberMe class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
                             <label class="label-checkbox100" for="ckb1">
 								Remember me
 							</label>
@@ -71,7 +71,7 @@
                     </div>
 
 
-                    <div class="container-login100-form-btn">
+                    <div id=LoginButton class="container-login100-form-btn">
                         <button class="login100-form-btn">
 							Login
 						</button>
@@ -83,12 +83,12 @@
 						</span>
                     </div>
 
-                    <div class="login100-form-social flex-c-m">
+                    <div id=FbSignUpButton class="login100-form-social flex-c-m">
                         <a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">
                             <i class="fa fa-facebook-f" aria-hidden="true"></i>
                         </a>
 
-                        <a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">
+                        <a id=InstaSignUpButton href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">
                             <i class="fa fa-twitter" aria-hidden="true"></i>
                         </a>
                     </div>
@@ -121,6 +121,50 @@
     <!--===============================================================================================-->
     <script src="{{ url_for('static',filename='JS/LoginPage/main.js') }}"></script>
 
+    <script>
+        $('#LoginButton').click(function() {
+            LoginUser();
+        });
+
+        function LoginUser() {
+            $UserName = $('#TextBoxUserName').val();
+            $Password = $('#TextBoxPassword').val();
+
+            if ($UserName == "" || $Password == "") {
+                showMessage("Invalid Username or Password", "A valid Username and Password is nessasary to create an account. Please insert a valid Username and Password")
+                return;
+            }
+
+            $data = {
+                UserName: $UserName,
+                Password: $Password,
+            }
+
+            $.ajax({
+                url: '/',
+                type: POST,
+                data: $data,
+                dataType: 'json',
+                success: function(Result) {
+                    if (Result.Type === 'Success') {
+                        $('input[type="text"]').val('');
+                        $('input[type="password"]').val('');
+                        confirmMessageWindowOpen('Success', Result.Message, Result.NextURL);
+
+                    } else if (Result.Type === 'Warning') {
+                        showMessage('Error!', Result.Message);
+                    } else {
+                        showMessage('Error!', Result.Message);
+                    }
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR.status, errorThrown);
+                }
+
+            });
+        }
+    </script>
 </body>
 
 </html>
