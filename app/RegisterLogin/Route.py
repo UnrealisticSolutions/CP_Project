@@ -16,7 +16,9 @@ def Login():
     if not CheckUserTypes:
         UserType(UserTypeName='Customer').save()
         UserType(UserTypeName='Bussinessmen').save()
-    return render_template('Login/Login.html', title=title, date=date)
+    # Login Section Header Title
+    headerTitle = 'Login'
+    return render_template('Login/Login.html', title=title, date=date,headerTitle=headerTitle)
 
 
 @LoginRegister.route('/Register', methods=['GET', 'POST'])
