@@ -19,7 +19,7 @@ class UserType(db.Document):
 
 class Business(db.Document):
     BusinessName = db.StringField()
-    BusinessNameDescription = db.StringField()
+    BusinessDescription = db.StringField()
     BusinessImageUrl = db.StringField()
     BusinessContactNumber = db.StringField()
     BusinessEmail = db.StringField()

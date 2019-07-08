@@ -30,6 +30,11 @@ function confirmMessageWindowOpen (title,content,NextLink,iconVal = 'far fa-meh-
     });
 }
 
+function openWindow(url,method = '_self')
+{
+    window.open(url,method,'toolbar=yes,scrollbars=yes,resizable=yes');
+}
+
 // This Method Is Use To Pause A Code Excecution For A Given Seconds Of Time
 function writeNext(i)
 {
