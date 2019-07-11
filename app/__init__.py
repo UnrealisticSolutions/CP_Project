@@ -1,11 +1,38 @@
+# ################################################################################################
+# Author : Pulasthi Bandara
+# Date Started :2019.06.25
+# Python Version:3.7
+# ################################################################################################
+
+# Flask Server Imports
 from flask import Flask
 from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
+# ################################################################################################
+
+# App Imports
 from app.config import Config
 from app.database import User
-from logging import FileHandler, WARNING
+# ################################################################################################
 
+# Python Imports
+from logging import FileHandler, WARNING #(For Log File Creating)
+# ################################################################################################
+
+# Creating Flask Object
 app = Flask(__name__)
+# BCrypt Object For Encrypting Data
 bcrypt = Bcrypt(app)
+
+# Login Manager Object
+login_manager = LoginManager(app)
+login_manager.login_view = 'User.login'
+login_manager.login_message_category  = 'info'
+
+# User Loader For Login Operation
+@login_manager.user_loader
+def load_user(user_id):
+    return User.objects(pk=user_id).first()
 
 #Log File To Detect Errors
 file_handler = FileHandler('ErrorLog.txt')

@@ -1,7 +1,22 @@
+# ################################################################################################
+# Author : Pulasthi Bandara
+# Date Started :2019.06.25
+# Python Version:3.7
+# ################################################################################################
+
+# Flask Server Imports
 from flask import *
-from app.database import User, UserType, Business, BusinessHasUsers
+from flask_login import login_user, current_user, logout_user, login_required
+# ################################################################################################
+
+# Python Imports
 import datetime
+# ################################################################################################
+
+# App Imports
+from app.database import User, UserType, Business, BusinessHasUsers
 from app import bcrypt
+# ################################################################################################
 
 
 LoginRegister = Blueprint('LoginRegister', __name__)
@@ -10,7 +25,35 @@ LoginRegister = Blueprint('LoginRegister', __name__)
 @LoginRegister.route('/login', methods=['GET', 'POST'])
 def Login():
     if request.method == 'POST':
-        return jsonify(request.form['UserName'])
+        username = request.form['UserName']
+        password = request.form['Password']
+        remember = False
+        if(request.form['Remember'] == 'Yes'):
+            remember = True
+        # Taking The User Object From The DB
+        checkUserNameDB = User.objects(UserUserName = username).first()
+        # Checking If The User Object Found Or Not
+        if(checkUserNameDB):
+            # Compairing The Passwords
+            if(bcrypt.check_password_hash(str(checkUserNameDB.UserPassword),password)):
+                # Checking If The User Has Access Or Not
+                if(checkUserNameDB.UserAccess == 'Yes'):
+                    login_user(checkUserNameDB, remember = remember)
+                    message = 'Successfully Loged In!'
+                    JsonResponse = {'Type': 'Success', 'Message': message}
+                    return jsonify(JsonResponse)
+                else:
+                    message = 'User Blocked! ,Please Contact The Developers!'
+                    JsonResponse = {'Type': 'Warning', 'Message': message}
+                    return jsonify(JsonResponse)
+            else:
+                message = 'Invalid Password!'
+                JsonResponse = {'Type': 'Warning', 'Message': message}
+                return jsonify(JsonResponse)
+        else:
+            message = 'User Not Found! ,Check Your Username!'
+            JsonResponse = {'Type': 'Warning', 'Message': message}
+            return jsonify(JsonResponse)
     title = 'User Login'
     date = datetime.datetime.now().year
     # Checking If The User Types Are In The Database Or Not. If Not Default User Types Will Be Added Automatically In This Route

@@ -27,8 +27,6 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='CSS/LoginPage/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='CSS/LoginPage/main.css') }}">
-    <!-- Importing Global JS File -->
-    <script src="{{ url_for('static',filename = 'JS/GlobalJS/Global.js') }}"></script>
 
     <!--===============================================================================================-->
 </head>
@@ -122,6 +120,12 @@
     <script src="{{ url_for('static',filename='LoginPageVendor/Vendor/Countdowntime/countdowntime.js') }}"></script>
     <!--===============================================================================================-->
     <script src="{{ url_for('static',filename='JS/LoginPage/main.js') }}"></script>
+    <!-- ConfirmJS CSS File -->
+    <link rel="stylesheet" href="{{url_for('static',filename = 'CSS/ConfirmJS/jquery-confirm.css')}}">
+    <!-- ConfirmJS JS File -->
+    <script src="{{ url_for('static',filename='JS/ConfirmJS/jquery-confirm.js') }}"></script>
+    <!-- Importing Global JS File -->
+    <script src="{{ url_for('static',filename = 'JS/GlobalJS/Global.js') }}"></script>
 
     <script>
         $('#LoginButton').click(function() {
@@ -131,7 +135,11 @@
         function LoginUser() {
             $UserName = $('#TextBoxUserName').val();
             $Password = $('#TextBoxPassword').val();
-
+            $remember = 'No';
+            if($("#CheckBoxRememberMe").is(':checked'))
+            {
+                $remember='Yes';
+            }
             if ($UserName == "" || $Password == "") {
                 showMessage("Invalid Username or Password", "A valid Username and Password is nessasary to create an account. Please insert a valid Username and Password")
                 return;
@@ -140,6 +148,7 @@
             $data = {
                 UserName: $UserName,
                 Password: $Password,
+                Remember: $remember,
             }
 
             $.ajax({
@@ -149,7 +158,6 @@
                 dataType: 'json',
                 success: function(Result) {
                     console.log(Result);
-                    return;
                     if (Result.Type === 'Success') {
                         $('input[type="text"]').val('');
                         $('input[type="password"]').val('');
@@ -157,8 +165,10 @@
 
                     } else if (Result.Type === 'Warning') {
                         showMessage('Error!', Result.Message);
+                        $('input[type="password"]').val('');
                     } else {
                         showMessage('Error!', Result.Message);
+                        $('input[type="password"]').val('');
                     }
 
                 },

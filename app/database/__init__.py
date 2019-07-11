@@ -1,10 +1,17 @@
+# #################################################################################################
+# Flask Server Imports
+from flask_login import UserMixin
+# MongoEngine Imports
 import mongoengine as db
+# #################################################################################################
+# Python Imports
 import datetime
+# #################################################################################################
 
 db.connect('ChoongPang', alias='default')
 
 
-class User(db.Document):
+class User(UserMixin,db.Document):
     UserUserName = db.StringField()
     UserFirstName = db.StringField()
     UserLastName = db.StringField()
@@ -13,6 +20,7 @@ class User(db.Document):
     UserContactNumber = db.StringField()
     UserAdrress = db.StringField()
     UserType = db.ReferenceField('UserType')
+    UserAccess = db.StringField(default = 'Yes')
 
 class UserType(db.Document):
     UserTypeName = db.StringField()
