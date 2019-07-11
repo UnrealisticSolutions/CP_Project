@@ -14,7 +14,9 @@ file_handler.setLevel(WARNING)
 app.logger.addHandler(file_handler)
 
 from app.RegisterLogin.Route import LoginRegister
+from app.Home.Route import Home
 
 app.config.from_object(Config)
 
 app.register_blueprint(LoginRegister)
+app.register_blueprint(Home)
