@@ -7,8 +7,10 @@ from app import bcrypt
 LoginRegister = Blueprint('LoginRegister', __name__)
 
 
-@LoginRegister.route('/', methods=['GET', 'POST'])
+@LoginRegister.route('/login', methods=['GET', 'POST'])
 def Login():
+    if request.method == 'POST':
+        return jsonify(request.form['UserName'])
     title = 'User Login'
     date = datetime.datetime.now().year
     # Checking If The User Types Are In The Database Or Not. If Not Default User Types Will Be Added Automatically In This Route

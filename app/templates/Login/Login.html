@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-    <!-- Importing files -->
     <title>Login User</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Importing files -->
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="{{ url_for('static',filename='Images/LoginPage/Images/Icons/favicon.ico') }}" />
     <!--===============================================================================================-->
@@ -27,6 +27,8 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='CSS/LoginPage/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='CSS/LoginPage/main.css') }}">
+    <!-- Importing Global JS File -->
+    <script src="{{ url_for('static',filename = 'JS/GlobalJS/Global.js') }}"></script>
 
     <!--===============================================================================================-->
 </head>
@@ -141,11 +143,13 @@
             }
 
             $.ajax({
-                url: '/',
-                type: POST,
+                url: '/login',
+                type: 'post',
                 data: $data,
                 dataType: 'json',
                 success: function(Result) {
+                    console.log(Result);
+                    return;
                     if (Result.Type === 'Success') {
                         $('input[type="text"]').val('');
                         $('input[type="password"]').val('');
