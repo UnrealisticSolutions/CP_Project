@@ -77,7 +77,11 @@
                             src="{{ url_for('static',filename='Images/LoginSection/Instagram.png') }}"></span>
                 </div>
                 <div class="col-sm-4 col-xs-3 col-lg-4 text-right">
+                    {% if current_user.is_authenticated %}
+                    <button class="btn btnColorLogout mr-4" id="btnLogout">Logout</button>
+                    {% else %}
                     <button class="btn btnColorLogin mr-4" id="btnLogin">Login</button>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -163,8 +167,30 @@
         });
 
         $('#btnLogin').click(function(){
-            openWindow('/');
+            openWindow('/login');
         });
+
+        $('#btnLogout').click(function() {
+            logout();
+        });
+
+        function logout()
+        {
+            $.ajax({
+                method:'post',
+                url:'/logout',
+                success:function(Result)
+                {
+                    console.log(Result);
+                    location.reload();
+                },
+                error:function(jqXHR, textStatus, errorThrown)
+                {
+                    console.log(jqXHR.status,errorThrown);
+                }
+            });
+        }
+
     </script>
 
 </body>

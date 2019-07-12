@@ -40,7 +40,8 @@ def Login():
                 if(checkUserNameDB.UserAccess == 'Yes'):
                     login_user(checkUserNameDB, remember = remember)
                     message = 'Successfully Loged In!'
-                    JsonResponse = {'Type': 'Success', 'Message': message}
+                    NextURL = '/home'
+                    JsonResponse = {'Type': 'Success', 'Message': message,'NextURL':NextURL}
                     return jsonify(JsonResponse)
                 else:
                     message = 'User Blocked! ,Please Contact The Developers!'
@@ -64,6 +65,13 @@ def Login():
     # Login Section Header Title
     headerTitle = 'Login'
     return render_template('Login/Login.html', title=title, date=date,headerTitle=headerTitle)
+
+@LoginRegister.route('/logout',methods = ['GET','POST'])
+def logout():
+    logout_user()
+    message = 'User Logged Out!'
+    JsonResponse = {'Type': 'Success', 'Message': message}
+    return jsonify(JsonResponse)
 
 
 @LoginRegister.route('/Register', methods=['GET', 'POST'])

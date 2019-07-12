@@ -57,8 +57,8 @@
 
                     <div class="flex-sb-m w-full p-t-3 p-b-32">
                         <div class="contact100-form-checkbox">
-                            <input id=CheckBoxRememberMe class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-                            <label class="label-checkbox100" for="ckb1">
+                            <input id=CheckBoxRememberMe class="input-checkbox100"  type="checkbox" name="remember-me">
+                            <label class="label-checkbox100" for="CheckBoxRememberMe">
 								Remember me
 							</label>
                         </div>
@@ -141,7 +141,7 @@
                 $remember='Yes';
             }
             if ($UserName == "" || $Password == "") {
-                showMessage("Invalid Username or Password", "A valid Username and Password is nessasary to create an account. Please insert a valid Username and Password")
+                showMessage("Error!", "Please Enter Your Username And Password!")
                 return;
             }
 

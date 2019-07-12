@@ -56,6 +56,13 @@ a
     width: 150px;
 }
 
+.btnColorLogout
+{
+    background-color: #da0521;
+    color: white;
+    width: 150px;
+}
+
 img.Login
 {
     width:35px;
