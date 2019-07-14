@@ -24,6 +24,8 @@ LoginRegister = Blueprint('LoginRegister', __name__)
 
 @LoginRegister.route('/login', methods=['GET', 'POST'])
 def Login():
+    if current_user.is_authenticated:
+        return redirect(url_for('Home.home'))
     if request.method == 'POST':
         username = request.form['UserName']
         password = request.form['Password']
