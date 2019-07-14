@@ -7,6 +7,7 @@
 # Flask Server Imports
 from flask import *
 from flask_login import login_user, current_user, logout_user, login_required
+from werkzeug.utils import secure_filename
 # ################################################################################################
 
 # Python Imports
@@ -131,7 +132,20 @@ def addBussinessDetails():
     date = datetime.datetime.now().year
     if request.method == 'POST':
         BusinessName = request.form['BusinessName']
-        
+        BusinessContactNumber = request.form['BusinessContactNumber']
+        BusinessEmail = request.form['BusinessEmail']
+        BusinessAddress = request.form['BusinessAddress']
+        BusinessDescription = request.form['BusinessDescription']
+        BusinessImage = request.form['BusinessImage']
+        # Default Url If The Image Is Not Uploaded
+        url = app.config['DEFAULT_BUSINESS_IMAGE_PATH'] + app.config['DEFAULT_BUSINESS_IMAGE_NAME']
+        # Uploading The Image
+        if BusinessImage.filename != '' and BusinessImage and allowed_file(BusinessImage.filename):
+            filename = secure_filename(BusinessImage.filename)
+            BusinessImage.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            url = app.config['UPLOAD_FOLDER'] + filename
+        # Sending Data To The Server
+        Business(BusinessName = BusinessName,BusinessDescription = BusinessDescription,BusinessImageUrl = url,BusinessContactNumber = BusinessContactNumber,BusinessEmail = BusinessEmail,BusinessAddress = BusinessAddress).save()
     # Get User Id From A Get Request And Get The User Object
     UserObj = User.objects.get(id=request.args.get('UserId'))
     return render_template('Register/AddBusinessDetails/AddBusinessDetails.html',User = UserObj)
