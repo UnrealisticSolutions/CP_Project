@@ -146,6 +146,7 @@ def addBussinessDetails():
             url = app.config['UPLOAD_FOLDER'] + filename
         # Sending Data To The Server
         Business(BusinessName = BusinessName,BusinessDescription = BusinessDescription,BusinessImageUrl = url,BusinessContactNumber = BusinessContactNumber,BusinessEmail = BusinessEmail,BusinessAddress = BusinessAddress).save()
+        
     # Get User Id From A Get Request And Get The User Object
     UserObj = User.objects.get(id=request.args.get('UserId'))
     return render_template('Register/AddBusinessDetails/AddBusinessDetails.html',User = UserObj)
