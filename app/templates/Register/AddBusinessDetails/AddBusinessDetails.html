@@ -10,121 +10,101 @@
 <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 
 <div class="container mb-5">
-    <div class="col-lg-12">
-        <div class="Form-title">
-            <h4>Business Registstration</h4>
-        </div>
-        <!-- First Row -->
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <input type="text" id="TextBoxBusinessName" class="form-control form-control-lg mt-2 inputName"
-                        placeholder="Business Name">
-                </div>
+    <form id="AddBusinessDetailsForm" method="post" enctype="multipart/form-data">
+        <div class="col-lg-12">
+            <div class="Form-title">
+                <h4>Business Registstration</h4>
             </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <input type="text" id="TextBoxBusinessContactNumber" class="form-control form-control-lg mt-2 inputName"
-                        placeholder="Business Contact Number">
-                </div>
-            </div>
-        </div>
-        <!-- First Row End -->
-        <!-- Second Row -->
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <input type="text" id="TextBoxBusinessEmail" class="form-control form-control-lg mt-2 inputUserName" placeholder="Business Email">
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <input type="text" id="TextBoxBusinessAddress" class="form-control form-control-lg mt-2 inputEmail"
-                        placeholder="Business Address">
-                </div>
-            </div>
-        </div>
-        <!-- Second Row End -->
-        <!-- Third Row -->
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <span class="card text-center form-label font-weight-bold">Business Image</span>
-                    <input type="file" id="FileFieldBusinessImage" class="form-control form-control-lg mt-2 inputPassword">
-                </div>
-            </div>
-        </div>
-        <!-- Third Row End -->
-        <!-- Fourth Row -->
-        <div class="row">
+            <!-- First Row -->
+            <div class="row">
                 <div class="col-lg-6">
-                    <span class="card text-center font-weight-bold">Share Something About Your Business</span>
                     <div class="form-group">
-                            <textarea class="form-control rounded-0" id="TextBoxDescription" rows="10"></textarea>
-                        </div>                  
+                        <input type="text" name="TextBoxBusinessName" id="TextBoxBusinessName" class="form-control form-control-lg mt-2 inputName"
+                            placeholder="Business Name">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <input type="text" id="TextBoxBusinessContactNumber" name="TextBoxBusinessContactNumber" class="form-control form-control-lg mt-2 inputName" placeholder="Business Contact Number">
                     </div>
                 </div>
             </div>
-            <!-- Fourth Row End -->
-        <!-- Buttons -->
-        <div class="row mt-4">
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <input type="button" id="btn_RegisterBusiness" class="btn btn-success rounded ml-3" value="Register Business">
+            <!-- First Row End -->
+            <!-- Second Row -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <input type="text" id="TextBoxBusinessEmail" name="TextBoxBusinessEmail" class="form-control form-control-lg mt-2 inputUserName" placeholder="Business Email">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <input type="text" id="TextBoxBusinessAddress" name="TextBoxBusinessAddress" class="form-control form-control-lg mt-2 inputEmail" placeholder="Business Address">
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- Button Ends -->
-    </div>
+            <!-- Second Row End -->
+            <!-- Third Row -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <span class="card text-center form-label font-weight-bold">Business Image</span>
+                        <input type="file" id="FileFieldBusinessImage"  name="FileFieldBusinessImage" class="form-control form-control-lg mt-2 inputPassword">
+                    </div>
+                </div>
+            </div>
+            <!-- Third Row End -->
+            <!-- Fourth Row -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <span class="card text-center font-weight-bold">Share Something About Your Business</span>
+                    <div class="form-group">
+                        <textarea class="form-control rounded-0" id="TextBoxDescription" name="TextBoxDescription" rows="10"></textarea>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!-- Fourth Row End -->
+            <!-- Buttons -->
+            <div class="row mt-4">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <input type="submit" id="btn_RegisterBusiness" class="btn btn-success rounded ml-3" value="Register Business">
+                    </div>
+                </div>
+            </div>
+            <!-- Button Ends -->
+            </div>
+    </form>
 </div>
 
 <script>
-    function RegisterBusiness()
-    {
-        $BusinessName = $('#TextBoxBusinessName').val();
-        $BusinessContactNumber = $('#TextBoxBusinessContactNumber').val();
-        $BusinessEmail = $('#TextBoxBusinessEmail').val();
-        $BusinessAdress = $('#TextBoxBusinessAddress').val();
-        $BusinessDescription = $('#TextBoxDescription').val();
-        $BusinessImage = $('#FileFieldBusinessImage').prop('files')[0]
-        if($BusinessName == '' || $BusinessContactNumber == '')
-        {
-            showMessage('Error!','Business Name and Business Contact Number Must Be Filled!');
-            return;
-        }
-        $data = {BusinessName : $BusinessName,BusinessContactNumber:$BusinessContactNumber,BusinessEmail:$BusinessEmail,BusinessAddress:$BusinessAdress,BusinessDescription:$BusinessDescription,BusinessImage:$BusinessImage};
-        $.ajax({
-            type:'post',
-            url:'/addBusinessDetails',
-            data:$data,
-            dataType:'json',
-            success:function(result)
-            {
-                if (Result.Type === 'Success') {
-                        // showMessage('Success', Result.Message);
-                        $('input[type="text"]').val('');
-                        $('input[type="file"]').val('');
-                        $('#TextBoxDescription').val('');
-                        confirmMessageWindowOpen('Success', Result.Message, Result.NextURL);
+    // Sending The Whole Form Together Because Of File Uploading
+    $("#AddBusinessDetailsForm").submit(function(e) {
+    e.preventDefault();    
+    var formData = new FormData(this);
 
-                    } else if (Result.Type === 'Warning') {
-                        showMessage('Error!', Result.Message);
-                    } else {
-                        showMessage('Error!', Result.Message);
-                    }
-            },
-            error:function(jqXHR, textStatus, errorThrown)
+    $.ajax({
+        url: '/addBusinessDetails',
+        type: 'POST',
+        data: formData,
+        dataType:'json',
+        success: function (data) {
+            $("form").trigger("reset");
+            if (data.Type == 'Success')
             {
-                console.log(jqXHR.status,errorThrown);
+                confirmMessageWindowOpen('Success','Your Business Is Successfully Registered! Wish You All The Very Best!',data.NextURL);
             }
-        });
-    }
-
-    $(document).ready(function(){
-        $('#btn_RegisterBusiness').click(function(){
-            RegisterBusiness();
-        });
+            else
+            {
+                showMessage('Error',data.Message);
+            }
+        },
+        cache: false,
+        contentType: false,
+        processData: false
     });
+});
 
 </script>
 

@@ -36,7 +36,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand mr-auto ml-1" href="#">CHOONGPANG.LK</a>
-        <img src="{{ url_for('static',filename='Images/NavBar/Search.png') }}" class="navbar-brand search img-fluid">
+        <input type="text" id="searchField" class="form-control-lg col-lg-5" placeholder="🙄 Search Products">
+        <button class="btn btn-success btn-lg ml-1" id="searchFieldButton">Search</button>
+        <img src="{{ url_for('static',filename='Images/NavBar/Search.png') }}" id="searchImage" class="navbar-brand search img-fluid">
 
         <div class="collapse navbar-collapse" id="navbarsExample01">
             <ul class="navbar-nav mr-auto">
@@ -88,45 +90,39 @@
     </div>
     <!-- Login User Section End -->
     <!-- Drop Down Icon Section Start -->
-    <div class="row" id="DropDownIcon">
-        <div class="col-lg-12 border-bottom head">
-            <div class="text-center">
-                <span><img src="{{ url_for('static',filename='Images/NavBar/DownArrow.png') }}" alt=""></span>
-            </div>
-        </div>
+    <div class="container-fluid border-bottom head" id="DropDownIcon">
+        <div class="text-center">
+            <span><img src="{{ url_for('static',filename='Images/NavBar/DownArrow.png') }}" alt=""></span>
+        </div>   
     </div>
     <!-- Drop Down Icon Section End -->
     <!-- Drop Down Icon2 Section Start -->
-    <div class="row" id="DropDownIcon2">
-            <div class="col-lg-12 border-bottom head">
-                <div class="text-center">
-                    <span><img src="{{ url_for('static',filename='Images/NavBar/UpArrow.png') }}" alt=""></span>
-                </div>
-            </div>
-        </div>
-        <!-- Drop Down Icon2 Section End -->
+    <div class="container-fluid border-bottom head" id="DropDownIcon2">
+        <div class="text-center">
+            <span><img src="{{ url_for('static',filename='Images/NavBar/UpArrow.png') }}" alt=""></span>
+        </div>   
+    </div>
+    <!-- Drop Down Icon2 Section End -->
     <!-- Toggle Button Section Start -->
-    <div id="MenuBar" class=" MainMenuSection container-fluid text-center" style="border-bottom:3px rgb(197, 197, 197) solid;"
-        id="ToggleButtonSection">
+    <div id="MenuBar" class=" MainMenuSection container-fluid text-center" style="border-bottom:3px rgb(197, 197, 197) solid;">
         <div class="row">
-            <div class="mt-4 mb-3" style="margin-left: 7%;">
+            <div class="mt-4 mb-3" style="margin-left: 6.5%;">
                 <span><img class="menuItems" src="{{ url_for('static',filename='Images/LoginSection/Taco.png') }}"
                         alt=""></span>
                 <span class="ml-4">Products</span>
             </div>
-            <span class="vl" style="margin-left: 5.5%"></span>
+            <span class="vl" style="margin-left: 4%"></span>
             <div class="mt-4 mb-3" style="margin-left: 7%;">
-                <span><img class="menuItems" src="{{ url_for('static',filename='Images/LoginSection/Delivery.png') }}"
-                        alt=""></span>
+                <span><img class="menuItems" src="{{ url_for('static',filename='Images/LoginSection/Delivery.png') }}" alt=""></span>
                 <span class="ml-4">Routes</span>
             </div>
-            <span class="vl" style="margin-left: 6.7%"></span>
+            <span class="vl" style="margin-left: 4%"></span>
             <div class="mt-4 mb-3" style="margin-left: 7%;">
                 <span><img class="menuItems" src="{{ url_for('static',filename='Images/LoginSection/Timeline.png') }}"
                         alt=""></span>
                 <span class="ml-4">Times</span>
             </div>
-            <span class="vl" style="margin-left: 7.9%"></span>
+            <span class="vl" style="margin-left: 4%"></span>
             <div class="mt-4 mb-3" style="margin-left: 7%;">
                 <span><img class="menuItems" src="{{ url_for('static',filename='Images/LoginSection/Idea.png') }}"
                         alt=""></span>
@@ -153,7 +149,20 @@
         $(document).ready(function(){
             $('#MenuBar').hide();
             $('#DropDownIcon2').hide();
+            $('#searchField').hide();
+            $('#searchFieldButton').hide();
         });
+        $("#searchImage").click(function () {
+            if($('#searchField').is(":visible"))
+            {
+                $('#searchField').hide('fast');
+                $('#searchFieldButton').hide('fast');
+                return;
+            }
+            $('#searchFieldButton').show('fast');
+            $('#searchField').show('fast');
+        });
+
         $('#DropDownIcon').click(function(){
             $('#DropDownIcon').hide(1500);
             $('#DropDownIcon2').show(1000);

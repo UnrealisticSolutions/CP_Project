@@ -40,10 +40,15 @@ file_handler.setLevel(WARNING)
 
 app.logger.addHandler(file_handler)
 
+# Login Routes
 from app.RegisterLogin.Route import LoginRegister
+# User HomePage(Dashboard) Routes
 from app.Home.Route import Home
+#Index Page Routes
+from app.Index.Route import Index
 
 app.config.from_object(Config)
 
 app.register_blueprint(LoginRegister)
 app.register_blueprint(Home)
+app.register_blueprint(Index)

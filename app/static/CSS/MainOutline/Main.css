@@ -1,9 +1,15 @@
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+
 .head
 {
-    /* background-image: linear-gradient(to right,#602da3 , #f05d43); */
-    /* background-image: linear-gradient(to right,#242f58 , #045204); */
     background-image: linear-gradient(to right,#5b14df , #df350b);
-    height: 12%;
+    height: auto;
+    width: 100vh;
 }
 
 .MainMenuSection
@@ -15,11 +21,9 @@
 {
     .head
     {
-        /* background-image: linear-gradient(to right,#602da3 , #f05d43); */
-        /* background-image: linear-gradient(to right,#242f58 , #045204); */
         background-image: linear-gradient(to right,#5b14df , #df350b);
-        /* background-color: #004279; */
         height: auto;
+        width: 100vh;
     }
     .dropdown-item
     {

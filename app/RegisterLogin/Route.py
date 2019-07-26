@@ -12,11 +12,14 @@ from werkzeug.utils import secure_filename
 
 # Python Imports
 import datetime
+import os
+import uuid
 # ################################################################################################
 
 # App Imports
 from app.database import User, UserType, Business, BusinessHasUsers
 from app import bcrypt
+from app import app
 # ################################################################################################
 
 
@@ -60,11 +63,6 @@ def Login():
             return jsonify(JsonResponse)
     title = 'User Login'
     date = datetime.datetime.now().year
-    # Checking If The User Types Are In The Database Or Not. If Not Default User Types Will Be Added Automatically In This Route
-    CheckUserTypes = UserType.objects()
-    if not CheckUserTypes:
-        UserType(UserTypeName='Customer').save()
-        UserType(UserTypeName='Bussinessmen').save()
     # Login Section Header Title
     headerTitle = 'Login'
     return render_template('Login/Login.html', title=title, date=date,headerTitle=headerTitle)
@@ -118,11 +116,16 @@ def Register():
         Return_User = User(UserUserName=UserNameInput, UserFirstName=FirstNameInput, UserLastName=LastNameInput, UserEmail=EmailAddressInput, UserPassword=HashedPassword, UserContactNumber=ContactNumberInput, UserAdrress=AddressInput, UserType=UserTypeObject).save()
         Message = 'Your Account Has Been Successfully Created!'
         # Returning the Url Of The Next Rendering Page according To The User Type
-        if UserTypeNameInput == 'Businessmen':
+        if UserTypeNameInput == 'businessman':
             JsonResponse = {'Type': 'Success','Message': Message, 'NextURL': 'addBusinessDetails?UserId='+str(Return_User.id)}
         else:
             JsonResponse = {'Type': 'Success','Message': Message, 'NextURL': 'Register'}
         return jsonify(JsonResponse)
+    # Checking If The User Types Are In The Database Or Not. If Not Default User Types Will Be Added Automatically In This Route
+    CheckUserTypes = UserType.objects()
+    if not CheckUserTypes:
+        UserType(UserTypeName='Customer').save()
+        UserType(UserTypeName='businessman').save()
     return render_template('Register/Register.html', title=title, date=date)
 
 
@@ -130,23 +133,33 @@ def Register():
 def addBussinessDetails():
     title = 'Add Business Details!'
     date = datetime.datetime.now().year
+    #Had To Use HTML Form To Pass Data. HTML Elements Name Will Use To Gather Data
     if request.method == 'POST':
-        BusinessName = request.form['BusinessName']
-        BusinessContactNumber = request.form['BusinessContactNumber']
-        BusinessEmail = request.form['BusinessEmail']
-        BusinessAddress = request.form['BusinessAddress']
-        BusinessDescription = request.form['BusinessDescription']
-        BusinessImage = request.form['BusinessImage']
+        BusinessName = request.form['TextBoxBusinessName']
+        BusinessContactNumber = request.form['TextBoxBusinessContactNumber']
+        BusinessEmail = request.form['TextBoxBusinessEmail']
+        BusinessAddress = request.form['TextBoxBusinessAddress']
+        BusinessDescription = request.form['TextBoxDescription']
+        BusinessImage = request.files['FileFieldBusinessImage']
         # Default Url If The Image Is Not Uploaded
         url = app.config['DEFAULT_BUSINESS_IMAGE_PATH'] + app.config['DEFAULT_BUSINESS_IMAGE_NAME']
         # Uploading The Image
-        if BusinessImage.filename != '' and BusinessImage and allowed_file(BusinessImage.filename):
+        if BusinessImage.filename != '' and BusinessImage and BusinessImage.filename.rsplit('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']:
+            #Generating Unique ID For Image
+            ImageID = uuid.uuid4()
+            ImageID = str(ImageID)
+            ImageID = ImageID.rsplit('-',1)
+            ImageEXT = BusinessImage.filename.rsplit('.', 1)[1]
+            NewImageName = ImageID[1] + '.' + ImageEXT 
+            BusinessImage.filename = NewImageName
             filename = secure_filename(BusinessImage.filename)
             BusinessImage.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             url = app.config['UPLOAD_FOLDER'] + filename
         # Sending Data To The Server
         Business(BusinessName = BusinessName,BusinessDescription = BusinessDescription,BusinessImageUrl = url,BusinessContactNumber = BusinessContactNumber,BusinessEmail = BusinessEmail,BusinessAddress = BusinessAddress).save()
-        
+        Message = 'Successfully Registered The '+ BusinessName
+        JsonResponse = {'Type': 'Success','Message': Message, 'NextURL': 'home'}
+        return jsonify(JsonResponse)
     # Get User Id From A Get Request And Get The User Object
     UserObj = User.objects.get(id=request.args.get('UserId'))
     return render_template('Register/AddBusinessDetails/AddBusinessDetails.html',User = UserObj)

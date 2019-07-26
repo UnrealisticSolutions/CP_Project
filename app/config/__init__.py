@@ -12,7 +12,7 @@ class Config():
 	MAIL_USERNAME = os.environ.get('EMAIL_USER')
 	MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
 	TESTING = False
-	UPLOAD_FOLDER = '/home/scorpio/Documents/Cloned/CP_Project/app/static/Images/'
+	UPLOAD_FOLDER = '/home/scorpio/Documents/Cloned/CP_Project/app/static/Images/BusinessProfile/'
 	ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 	DEFAULT_BUSINESS_IMAGE_NAME = 'DefaultBusiness.png'
 	DEFAULT_BUSINESS_IMAGE_PATH = '/home/scorpio/Documents/Cloned/CP_Project/app/static/Images/BusinessProfile/'
