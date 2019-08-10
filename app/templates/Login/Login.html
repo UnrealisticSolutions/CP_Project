@@ -72,12 +72,18 @@
 
 
                     <div id=LoginButton class="container-login100-form-btn">
-                        <button class="login100-form-btn">
+                        <button type="button" class="login100-form-btn">
 							Login
 						</button>
                     </div>
 
-                    <div class="text-center p-t-46 p-b-20">
+                    <div class="text-center p-t-46">
+                        <span class="text-muted">
+							<a href="/Register">or Sign up here</a>
+						</span>
+                    </div>
+
+                    <div class="text-center p-b-20">
                         <span class="txt2">
 							or sign up using
 						</span>
@@ -175,6 +181,7 @@
                     if (Result.Type === 'Success') {
                         $('input[type="text"]').val('');
                         $('input[type="password"]').val('');
+                        console.log(Result);
                         confirmMessageWindowOpen('Success', Result.Message, Result.NextURL);
 
                     } else if (Result.Type === 'Warning') {

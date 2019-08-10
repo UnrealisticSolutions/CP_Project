@@ -1,5 +1,34 @@
 <!-- Including Header FIle -->
 {% extends '/MainOutline/MainOutline.html' %}
 {% block content %}
-    <h1>Customer Home</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+
+            </div>
+            <div class="col-lg-6">
+                <div class="container">
+                    <div class="card">
+                        <div class="text-center">
+                            <p class="font-weight-bold mt-3">Order Your Product</p>
+                        </div>
+                        <div class="card-body">
+                            <p>Product Category</p>
+                            <select class="form-control" name="SelectFieldProductCategory" id="SelectFieldProductCategory">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                            <p class="label mt-3">Product Name</p>
+                            <input type="text" class="form-control" name="TextFieldProductName" id="TextFieldProductName">
+                        </div>
+                        <div class="text-center mb-3">
+                            <button class="btn btn-success col-md-4">Order</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

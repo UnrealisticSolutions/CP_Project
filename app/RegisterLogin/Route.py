@@ -37,7 +37,7 @@ def Login():
         if(request.form['Remember'] == 'Yes'):
             remember = True
         # Taking The User Object From The DB
-        checkUserNameDB = User.objects(UserUserName = username).first()
+        checkUserNameDB = User.objects(UserEmail = username).first()
         # Checking If The User Object Found Or Not
         if(checkUserNameDB):
             # Compairing The Passwords

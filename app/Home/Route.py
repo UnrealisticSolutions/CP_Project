@@ -23,4 +23,7 @@ def home():
         return redirect(url_for('LoginRegister.Login'))
     title = 'Home'
     date = datetime.datetime.now().year #Getting The Current Time(Footer Signature)
-    return render_template('Home/CustomerHome.html',date=date)
+    if(current_user.UserType.UserTypeName == 'Customer'):
+        return render_template('Home/CustomerHome.html',date=date)
+    else:
+        return render_template('Home/DeliverHome.html',date=date)
