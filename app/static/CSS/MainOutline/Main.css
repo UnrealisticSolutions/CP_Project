@@ -102,3 +102,20 @@ img.Login
     width: 180px;
     height: 80px;
 }
+
+a.NavbarLink:hover
+{
+    color: #beccc6;
+    text-decoration: none;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 30px;
+}
+
+.NavbarLink
+{
+    color: #f3f2f2;
+    font-weight: bold;
+    font-size: 20px;
+    margin-right: 5px;
+}

@@ -141,6 +141,7 @@ def addBussinessDetails():
         BusinessAddress = request.form['TextBoxBusinessAddress']
         BusinessDescription = request.form['TextBoxDescription']
         BusinessImage = request.files['FileFieldBusinessImage']
+        UserID = request.form['TextBoxUserID']
         # Default Url If The Image Is Not Uploaded
         url = app.config['DEFAULT_BUSINESS_IMAGE_PATH'] + app.config['DEFAULT_BUSINESS_IMAGE_NAME']
         # Uploading The Image
@@ -156,7 +157,9 @@ def addBussinessDetails():
             BusinessImage.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             url = app.config['UPLOAD_FOLDER'] + filename
         # Sending Data To The Server
-        Business(BusinessName = BusinessName,BusinessDescription = BusinessDescription,BusinessImageUrl = url,BusinessContactNumber = BusinessContactNumber,BusinessEmail = BusinessEmail,BusinessAddress = BusinessAddress).save()
+        RegId = Business(BusinessName = BusinessName,BusinessDescription = BusinessDescription,BusinessImageUrl = url,BusinessContactNumber = BusinessContactNumber,BusinessEmail = BusinessEmail,BusinessAddress = BusinessAddress).save()
+        UserObjNew = User.objects.get(id=UserID)
+        BusinessHasUsers(Business = RegId,User = UserObjNew).save()
         Message = 'Successfully Registered The '+ BusinessName
         JsonResponse = {'Type': 'Success','Message': Message, 'NextURL': 'home'}
         return jsonify(JsonResponse)

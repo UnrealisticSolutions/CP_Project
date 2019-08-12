@@ -39,15 +39,16 @@
             <a id="ChoongPangBrand" class="navbar-brand ml-2" href="#">CHOONGPANG.LK</a>
             {% if current_user.UserType.UserTypeName == "Customer" %}
             <div class="mr-auto ml-4" id="CustomerMenu">
-                <span class="navbar-brand">My profile</span>
-                <span class="navbar-brand">My Orders</span>
-                <span class="navbar-brand">Cart</span>
+                <a class="NavbarLink" href="#">My profile</a>
+                <a class="NavbarLink" href="#">My Orders</a>
+                <a class="NavbarLink" href="#">Cart</a>
             </div>
             {% else %}
             <div class="mr-auto ml-4" id="DeliverMenu">
-                <span class="navbar-brand">My profile</span>
-                <span class="navbar-brand">My Orders</span>
-                <span class="navbar-brand">Cart</span>
+                <a class="NavbarLink" href="#">My profile</a>
+                <a class="NavbarLink" href="#">My Bussiness</a>
+                <a class="NavbarLink" href="#">My Products</a>
+                <a class="NavbarLink" href="#">My Stats</a>
             </div>
             {% endif %}
         {% else %}
